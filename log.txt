@@ -1,0 +1,9 @@
+Add Book: Title: kmit, Author: vishal, ISBN: 9780743273565
+Add Book: Title: vishal, Author: roston, ISBN: 123456
+Add Book: Title: vishal, Author: kmit, ISBN: 1234
+Add Book: Title: vishal, Author: roston, ISBN: 12345678
+Add User: Name: raju, User ID: 123456
+Checkin Book: User ID: 123456, ISBN: 12345678
+Checkout Book: User ID: 123456, ISBN: 12345678
+Add Book: Title: treasure hunt, Author: srikar, ISBN: 1231234
+Add Book: Title: the jonty, Author: ghiu, ISBN: 321
