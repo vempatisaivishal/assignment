@@ -34,16 +34,12 @@ To set up and run the Library Management System on your local machine, follow th
    cd library-management-system
    ```
 
-3. **Install Dependencies**: Install the required dependencies using pip. It's recommended to use a virtual environment to manage dependencies:
 
-   ```
-   pip install -r requirements.txt
-   ```
 
-4. **Run the Application**: Run the main.py file to start the Library Management System:
+3. **Run the Application**: Run the main.py file to start the Library Management System:
 
    ```
    python main.py
    ```
 
-5. **Interact with the Application**: Once the application is running, follow the prompts on the console to perform various library management operations, such as adding books, managing users, and checking out books.
+4. **Interact with the Application**: Once the application is running, follow the prompts on the console to perform various library management operations, such as adding books, managing users, and checking out books.
