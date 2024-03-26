@@ -1,0 +1,382 @@
+
+1. **Architecture Overview**
+
+The library management system follows a modular design pattern, with each module responsible for managing a specific aspect of the system. The main components are:
+
+- `models.py`: Defines the data models (`Book`, `User`, and `Checkout`) used throughout the system.
+- `book.py`: Handles book-related operations, such as adding, listing, updating, deleting, and searching books.
+- `user.py`: Manages user-related operations, such as adding, listing, updating, deleting, and searching users.
+- `check.py`: Responsible for checking out and checking in books for users.
+- `storage.py`: Provides a simple interface for loading and saving data to JSON files.
+- `logger.py`: Handles logging of various operations performed within the system.
+- `main.py`: Contains the main entry point and user interface for the library management system.
+
+2. **module: models.py**
+
+This module defines the data models used throughout the system.
+
+```python
+class Book:
+    def __init__(self, title=None, author=None, isbn=None):
+        """
+        Initialize a Book object with its attributes.
+
+        Args:
+            title (str, optional): The title of the book.
+            author (str, optional): The author of the book.
+            isbn (str, optional): The ISBN (International Standard Book Number) of the book.
+        """
+        self.title = title
+        self.author = author
+        self.isbn = isbn
+        self.checked_out = False  # Initialize as available by default
+```
+
+- The `Book` class represents a book in the library.
+- It has attributes for `title`, `author`, `isbn`, and `checked_out` (a flag indicating whether the book is currently checked out or not).
+- The constructor allows creating a `Book` instance with or without providing initial values for the attributes.
+
+```python
+class User:
+    def __init__(self, name, user_id):
+        """
+        Initialize a User object with its attributes.
+
+        Args:
+            name (str): The name of the user.
+            user_id (str): The unique ID of the user.
+        """
+        self.name = name
+        self.user_id = user_id
+```
+
+- The `User` class represents a user of the library.
+- It has attributes for `name` and `user_id`.
+- The constructor requires providing values for both attributes.
+
+```python
+class Checkout:
+    def __init__(self, user_id, isbn):
+        """
+        Initialize a Checkout object with its attributes.
+
+        Args:
+            user_id (str): The ID of the user who is checking out the book.
+            isbn (str): The ISBN of the book being checked out.
+        """
+        self.user_id = user_id
+        self.isbn = isbn
+```
+
+- The `Checkout` class represents a checkout record, which associates a user with a book they have checked out.
+- It has attributes for `user_id` and `isbn`.
+- The constructor requires providing values for both attributes.
+
+3. **module: book.py**
+
+This module provides a class for managing book-related operations in the library management system.
+
+```python
+class Book:
+    """
+    A class for managing books in a library management system.
+    """
+
+    @staticmethod
+    def add_book(title: str, author: str, isbn: str) -> None:
+        """
+        Add a new book to the library.
+
+        Args:
+            title (str): The title of the book.
+            author (str): The author of the book.
+            isbn (str): The ISBN (International Standard Book Number) of the book.
+
+        Raises:
+            IOError: If there is an error loading or saving the book data.
+            ValueError: If the ISBN is not a valid string.
+        """
+        # ... (implementation details) ...
+```
+
+- The `add_book` method creates a new `Book` instance with the provided `title`, `author`, and `isbn`.
+- It then appends the dictionary representation of the new book to the list of existing books loaded from the `books.json` file.
+- It also logs the operation using the `Logger` module.
+- The method handles potential errors, such as `IOError` and `ValueError`, and raises appropriate exceptions if needed.
+
+```python
+    @staticmethod
+    def list_books() -> List[Dict]:
+        """
+        Get a list of all books in the library.
+
+        Returns:
+            List[Dict]: A list of book dictionaries containing book details.
+
+        Raises:
+            IOError: If there is an error loading the book data.
+        """
+        # ... (implementation details) ...
+```
+
+- The `list_books` method loads the list of existing books from the `books.json` file.
+- It returns the list of book dictionaries.
+- It handles potential `IOError` exceptions and raises them if needed.
+
+```python
+    @staticmethod
+    def update_book(isbn, new_title=None, new_author=None):
+        # ... (implementation details) ...
+
+    @staticmethod
+    def delete_book(isbn):
+        # ... (implementation details) ...
+
+    @staticmethod
+    def search_book(attribute, value):
+        # ... (implementation details) ...
+
+    @staticmethod
+    def check_availability(isbn):
+        # ... (implementation details) ...
+```
+
+- The `update_book` method updates the details of an existing book with the provided `isbn`.
+- The `delete_book` method removes a book with the provided `isbn` from the list of books.
+- The `search_book` method searches for books based on the provided `attribute` (e.g., `title`, `author`, or `isbn`) and `value`.
+- The `check_availability` method checks if a book with the provided `isbn` is available for checkout or not.
+
+4. **module: user.py**
+
+This module provides a class for managing user-related operations in the library management system.
+
+```python
+class User:
+    """
+    A class for managing users in a library management system.
+    """
+
+    @staticmethod
+    def add_user(name: str, user_id: str) -> None:
+        """
+        Add a new user to the system.
+
+        Args:
+            name (str): The name of the user.
+            user_id (str): The unique identifier for the user.
+
+        Raises:
+            IOError: If there is an error loading or saving the user data.
+            ValueError: If the name or user_id is not a valid string.
+        """
+        # ... (implementation details) ...
+```
+
+- The `add_user` method creates a new `User` instance with the provided `name` and `user_id`.
+- It then appends the dictionary representation of the new user to the list of existing users loaded from the `users.json` file.
+- It also logs the operation using the `Logger` module.
+- The method handles potential errors, such as `IOError` and `ValueError`, and raises appropriate exceptions if needed.
+
+```python
+    @staticmethod
+    def list_users() -> List[Dict]:
+        """
+        List all users in the system.
+
+        Returns:
+            List[Dict]: A list of user dictionaries containing user details.
+
+        Raises:
+            IOError: If there is an error loading the user data.
+        """
+        # ... (implementation details) ...
+```
+
+- The `list_users` method loads the list of existing users from the `users.json` file.
+- It returns the list of user dictionaries.
+- It handles potential `IOError` exceptions and raises them if needed.
+
+```python
+    @staticmethod
+    def update_user(user_id: str, new_name: Optional[str] = None) -> None:
+        # ... (implementation details) ...
+
+    @staticmethod
+    def delete_user(user_id: str) -> None:
+        # ... (implementation details) ...
+
+    @staticmethod
+    def search_user(attribute, value):
+        # ... (implementation details) ...
+```
+
+- The `update_user` method updates the name of an existing user with the provided `user_id`.
+- The `delete_user` method removes a user with the provided `user_id` from the list of users.
+- The `search_user` method searches for users based on the provided `attribute` (e.g., `name` or `user_id`) and `value`.
+
+5. **module: check.py**
+
+This module provides a class for managing book checkout and checkin operations in the library management system.
+
+```python
+class Check:
+    """
+    A class for managing book checkouts and checkins in a library management system.
+    """
+
+    @staticmethod
+    def checkout_book(user_id: str, isbn: str) -> None:
+        """
+        Check out a book for a user.
+
+        Args:
+            user_id (str): The ID of the user checking out the book.
+            isbn (str): The ISBN of the book being checked out.
+
+        Raises:
+            IOError: If there is an error loading or saving the checkout data.
+            ValueError: If the user_id or isbn is not a valid string.
+        """
+        # ... (implementation details) ...
+```
+
+- The `checkout_book` method creates a new `Checkout` instance with the provided `user_id` and `isbn`.
+- It then appends the dictionary representation of the new checkout record to the list of existing checkouts loaded from the `checkouts.json` file.
+- It also logs the operation using the `Logger` module.
+- The method handles potential errors, such as `IOError` and `ValueError`, and raises appropriate exceptions if needed.
+
+```python
+    @staticmethod
+    def checkin_book(user_id: str, isbn: str) -> None:
+        """
+        Check in a book for a user.
+
+        Args:
+            user_id (str): The ID of the user checking in the book.
+            isbn (str): The ISBN of the book being checked in.
+
+        Raises:
+            IOError: If there is an error loading or saving the checkout data.
+            ValueError: If the user_id or isbn is not a valid string.
+        """
+        # ... (implementation details) ...
+```
+
+- The `checkin_book` method removes the checkout record corresponding to the provided `user_id` and `isbn` from the list of existing checkouts.
+- It also logs the operation using the `Logger` module.
+- The method handles potential errors, such as `IOError` and `ValueError`, and raises appropriate exceptions if needed.
+
+6. **module: storage.py**
+
+This module provides a simple interface for loading and saving data to JSON files.
+
+```python
+class Storage:
+    @staticmethod
+    def load_data(filename):
+        """
+        Load data from a JSON file.
+
+        Args:
+            filename (str): The name of the JSON file to load data from.
+
+        Returns:
+            list: The data loaded from the file, or an empty list if the file does not exist or is empty.
+        """
+        # ... (implementation details) ...
+
+    @staticmethod
+    def save_data(filename, data):
+        """
+        Save data to a JSON file.
+
+        Args:
+            filename (str): The name of the JSON file to save data to.
+            data (list): The data to be saved to the file.
+        """
+        # ... (implementation details) ...
+```
+
+- The `Storage` class provides two static methods: `load_data` and `save_data`.
+- The `load_data` method loads data from a JSON file specified by `filename`.
+- If the file doesn't exist or is empty, it returns an empty list.
+- The `save_data` method saves the provided `data` (a list) to a JSON file specified by `filename`.
+
+7. **module: logger.py**
+
+This module provides a simple logger for logging operations within the library management system.
+
+```python
+class Logger:
+    @staticmethod
+    def log_operation(operation, details):
+        """
+        Log an operation with its details to a text file.
+
+        Args:
+            operation (str): The name of the operation being logged.
+            details (str): Additional details or parameters related to the operation.
+        """
+        # ... (implementation details) ...
+```
+
+- The `Logger` class provides a single static method: `log_operation`.
+- The `log_operation` method takes an `operation` (string representing the operation name) and `details` (string containing additional details about the operation).
+- It appends the operation and its details to the `log.txt` file.
+
+8. **module: main.py**
+
+This module provides the main entry point and user interface for the library management system.
+
+```python
+class Main:
+    def __init__(self):
+        """
+        Initialize the LibraryManagementSystem with instances of Book, User, and Check.
+        """
+        self.book_manager = Book()
+        self.user_manager = User()
+        self.check_manager = Check()
+
+    def main_menu(self) -> str:
+        """
+        Display the main menu options for the LibraryManagementSystem.
+
+        Returns:
+            str: The user's selected choice.
+        """
+        # ... (implementation details) ...
+
+    def run(self) -> None:
+        """
+        Run the main loop of the library management system application.
+        """
+        while True:
+            try:
+                choice = self.main_menu()
+                if choice == "1":
+                    # ... (implementation details) ...
+                elif choice == "2":
+                    # ... (implementation details) ...
+                # ... (other choices) ...
+                elif choice == "13":
+                    print("Exiting.")
+                    break
+                else:
+                    print("Invalid choice, please try again.")
+            except (ValueError, IOError) as e:
+                print(f"Error: {e}")
+
+
+if __name__ == "__main__":
+    library_system = Main()
+    library_system.run()
+```
+
+- The `Main` class serves as the main entry point for the library management system application.
+- It initializes instances of `Book`, `User`, and `Check` classes, which are used for managing books, users, and checkouts/checkins, respectively.
+- The `main_menu` method displays a menu of options for the user to choose from.
+- The `run` method runs the main loop of the application, allowing the user to select options from the menu and perform various operations.
+- The `run` method also handles potential `ValueError` and `IOError` exceptions, displaying an error message to the user.
+- The `__main__` block creates an instance of the `Main` class and calls its `run` method to start the application.
+
