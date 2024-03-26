@@ -1,4 +1,4 @@
-Sure, here's a README file that provides detailed information about the project setup:
+
 
 ---
 
@@ -34,12 +34,17 @@ To set up and run the Library Management System on your local machine, follow th
    cd library-management-system
    ```
 
-
-
-3. **Run the Application**: Run the main.py file to start the Library Management System:
+3. **Run the Application**: Run the `main.py` file to start the Library Management System:
 
    ```
    python main.py
    ```
 
 4. **Interact with the Application**: Once the application is running, follow the prompts on the console to perform various library management operations, such as adding books, managing users, and checking out books.
+
+## Documentation
+
+The project includes comprehensive documentation provided in the `documentation.docx` file. This document covers details about the project structure, classes, methods, and usage instructions. It also highlights improvements made in the latest version, including better usage of exception handling (`try-except` blocks), clearer comments throughout the code, and ensuring file names and class names match for consistency and clarity.
+
+---
+
