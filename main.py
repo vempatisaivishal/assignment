@@ -1,20 +1,18 @@
-from book import BookManager  # Import the BookManager class for managing books
-from user import UserManager  # Import the UserManager class for managing users
+from book import Book  # Import the BookManager class for managing books
+from user import User  # Import the UserManager class for managing users
 from check import (
-    CheckoutManager,
+    Check,
 )  # Import the CheckoutManager class for managing checkouts
 
 
-class LibraryManagementSystem:
+class Main:
     def __init__(self):
         """
         Initialize the LibraryManagementSystem with instances of BookManager, UserManager, and CheckoutManager.
         """
-        self.book_manager = BookManager()  # Create an instance of BookManager
-        self.user_manager = UserManager()  # Create an instance of UserManager
-        self.checkout_manager = (
-            CheckoutManager()
-        )  # Create an instance of CheckoutManager
+        self.book_manager = Book  # Create an instance of BookManager
+        self.user_manager = User  # Create an instance of UserManager
+        self.checkout_manager = Check  # Create an instance of CheckoutManager
 
     def main_menu(self):
         """
@@ -123,7 +121,5 @@ class LibraryManagementSystem:
 
 
 if __name__ == "__main__":
-    library_system = (
-        LibraryManagementSystem()
-    )  # Create an instance of LibraryManagementSystem
+    library_system = Main()  # Create an instance of LibraryManagementSystem
     library_system.main()  # Run the main function of the LibraryManagementSystem

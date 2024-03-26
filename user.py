@@ -3,7 +3,11 @@ from storage import Storage  # Import the Storage class for data handling
 from logger import Logger  # Import the Logger class for logging operations
 
 
-class UserManager:
+class User:
+    def __init__(self, name, user_id):
+        self.name = name
+        self.user_id = user_id
+
     @staticmethod
     def add_user(name, user_id):
         """

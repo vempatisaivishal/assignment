@@ -16,8 +16,13 @@ class Storage:
         try:
             with open(filename, "r") as file:
                 data = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError):
-            data = []  # If the file doesn't exist or is empty, return an empty list
+        except FileNotFoundError:
+            data = []  # If the file doesn't exist, return an empty list
+        except json.JSONDecodeError:
+            data = []  # If the file is empty or cannot be decoded, return an empty list
+        except Exception as e:
+            print(f"An error occurred while loading data from {filename}: {e}")
+            data = []  # If an unexpected error occurs, return an empty list
         return data
 
     @staticmethod
@@ -29,5 +34,8 @@ class Storage:
             filename (str): The name of the JSON file to save data to.
             data (list): The data to be saved to the file.
         """
-        with open(filename, "w") as file:
-            json.dump(data, file)
+        try:
+            with open(filename, "w") as file:
+                json.dump(data, file)
+        except Exception as e:
+            print(f"An error occurred while saving data to {filename}: {e}")

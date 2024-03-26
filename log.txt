@@ -7,3 +7,17 @@ Checkin Book: User ID: 123456, ISBN: 12345678
 Checkout Book: User ID: 123456, ISBN: 12345678
 Add Book: Title: treasure hunt, Author: srikar, ISBN: 1231234
 Add Book: Title: the jonty, Author: ghiu, ISBN: 321
+Add Book: Title: tarzan, Author: vishal, ISBN: 12345
+Add User: Name: raja, User ID: 
+Add User: Name: tui, User ID: 321
+Checkin Book: User ID: 123456, ISBN: 1231234
+Checkout Book: User ID: 123456, ISBN: 1231234
+Add Book: Title: viui, Author: wrwrw, ISBN: 76498
+Checkin Book: User ID: 123456, ISBN: 1231234
+Checkout Book: User ID: 123456, ISBN: 12345678
+Add Book: Title: huisa, Author: treiu, ISBN: 4132
+Add User: Name: vishal, User ID: 1
+Checkout Book: User ID: 1, ISBN: 1231234
+Checkin Book: User ID: 1, ISBN: 1231234
+Checkout Book: User ID: 1, ISBN: 12345678
+Add Book: Title: titu, Author: yuit, ISBN: 321
