@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-Here's the updated README file with the new features mentioned:
-=======
 
-> > > > > > > 4c6150e70a4cbd22972e1720e230d8d1fcf7d4c8
-
----
 
 # Library Management System
 
