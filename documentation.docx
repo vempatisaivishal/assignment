@@ -1,12 +1,17 @@
+Here's an updated version of the documentation with improvements:
 
+<documents>
+<document index="1">
+<source>paste.txt</source>
+<document_content>
 1. **Architecture Overview**
 
 The library management system follows a modular design pattern, with each module responsible for managing a specific aspect of the system. The main components are:
 
 - `models.py`: Defines the data models (`Book`, `User`, and `Checkout`) used throughout the system.
-- `book.py`: Handles book-related operations, such as adding, listing, updating, deleting, and searching books.
-- `user.py`: Manages user-related operations, such as adding, listing, updating, deleting, and searching users.
-- `check.py`: Responsible for checking out and checking in books for users.
+- `book.py`: Handles book-related operations, such as adding, listing, updating, deleting, searching, and checking availability of books.
+- `user.py`: Manages user-related operations, such as adding, listing, updating, deleting, and searching users. It also enforces unique user IDs and names.
+- `check.py`: Responsible for checking out and checking in books for users. It prevents checkout of unavailable books and enforces user-specific check-in operations.
 - `storage.py`: Provides a simple interface for loading and saving data to JSON files.
 - `logger.py`: Handles logging of various operations performed within the system.
 - `main.py`: Contains the main entry point and user interface for the library management system.
@@ -53,6 +58,7 @@ class User:
 - The `User` class represents a user of the library.
 - It has attributes for `name` and `user_id`.
 - The constructor requires providing values for both attributes.
+- The `user.py` module enforces the uniqueness of user IDs and names when adding new users.
 
 ```python
 class Checkout:
@@ -138,6 +144,19 @@ class Book:
 
     @staticmethod
     def check_availability(isbn):
+        """
+        Check if a book with the provided ISBN is available for checkout.
+
+        Args:
+            isbn (str): The ISBN of the book to check availability for.
+
+        Returns:
+            bool: True if the book is available, False otherwise.
+
+        Raises:
+            ValueError: If the provided ISBN is not a valid string.
+            IOError: If there is an error loading the book data.
+        """
         # ... (implementation details) ...
 ```
 
@@ -145,6 +164,8 @@ class Book:
 - The `delete_book` method removes a book with the provided `isbn` from the list of books.
 - The `search_book` method searches for books based on the provided `attribute` (e.g., `title`, `author`, or `isbn`) and `value`.
 - The `check_availability` method checks if a book with the provided `isbn` is available for checkout or not.
+- It returns `True` if the book is available, and `False` otherwise.
+- The method handles potential `ValueError` and `IOError` exceptions and raises them if needed.
 
 4. **module: user.py**
 
@@ -167,15 +188,17 @@ class User:
 
         Raises:
             IOError: If there is an error loading or saving the user data.
-            ValueError: If the name or user_id is not a valid string.
+            ValueError: If the name or user_id is not a valid string, or if the name or user_id already exists.
         """
         # ... (implementation details) ...
+        # Check for duplicate user IDs and names, and raise ValueError if found
 ```
 
 - The `add_user` method creates a new `User` instance with the provided `name` and `user_id`.
 - It then appends the dictionary representation of the new user to the list of existing users loaded from the `users.json` file.
 - It also logs the operation using the `Logger` module.
 - The method handles potential errors, such as `IOError` and `ValueError`, and raises appropriate exceptions if needed.
+- It checks for duplicate user IDs and names, and raises a `ValueError` if found.
 
 ```python
     @staticmethod
@@ -200,6 +223,7 @@ class User:
     @staticmethod
     def update_user(user_id: str, new_name: Optional[str] = None) -> None:
         # ... (implementation details) ...
+        # Check for duplicate names after updating, and raise ValueError if found
 
     @staticmethod
     def delete_user(user_id: str) -> None:
@@ -211,6 +235,7 @@ class User:
 ```
 
 - The `update_user` method updates the name of an existing user with the provided `user_id`.
+- It checks for duplicate names after updating, and raises a `ValueError` if found.
 - The `delete_user` method removes a user with the provided `user_id` from the list of users.
 - The `search_user` method searches for users based on the provided `attribute` (e.g., `name` or `user_id`) and `value`.
 
@@ -235,15 +260,17 @@ class Check:
 
         Raises:
             IOError: If there is an error loading or saving the checkout data.
-            ValueError: If the user_id or isbn is not a valid string.
+            ValueError: If the user_id or isbn is not a valid string, or if the book is not available for checkout.
         """
         # ... (implementation details) ...
+        # Check if the book is available for checkout, and raise ValueError if not
 ```
 
 - The `checkout_book` method creates a new `Checkout` instance with the provided `user_id` and `isbn`.
 - It then appends the dictionary representation of the new checkout record to the list of existing checkouts loaded from the `checkouts.json` file.
 - It also logs the operation using the `Logger` module.
 - The method handles potential errors, such as `IOError` and `ValueError`, and raises appropriate exceptions if needed.
+- It checks if the book is available for checkout, and raises a `ValueError` if not.
 
 ```python
     @staticmethod
@@ -257,14 +284,16 @@ class Check:
 
         Raises:
             IOError: If there is an error loading or saving the checkout data.
-            ValueError: If the user_id or isbn is not a valid string.
+            ValueError: If the user_id or isbn is not a valid string, or if the user did not check out the book.
         """
         # ... (implementation details) ...
+        # Check if the user is allowed to check in the book, and raise ValueError if not
 ```
 
 - The `checkin_book` method removes the checkout record corresponding to the provided `user_id` and `isbn` from the list of existing checkouts.
 - It also logs the operation using the `Logger` module.
 - The method handles potential errors, such as `IOError` and `ValueError`, and raises appropriate exceptions if needed.
+- It checks if the user is allowed to check in the book (i.e., if the user checked out the book initially), and raises a `ValueError` if not.
 
 6. **module: storage.py**
 
@@ -380,3 +409,13 @@ if __name__ == "__main__":
 - The `run` method also handles potential `ValueError` and `IOError` exceptions, displaying an error message to the user.
 - The `__main__` block creates an instance of the `Main` class and calls its `run` method to start the application.
 
+**Additional Features**
+
+Preventing Duplicate User IDs and Names: We added functionality to ensure that there are no duplicate user IDs or names when adding a new user. If a duplicate is detected, the system notifies the user that the user already exists.
+
+Book Availability Tracking: We implemented book availability tracking to prevent users from checking out books that are already checked out by another user. The system checks the availability of the book before allowing a checkout operation.
+
+Enforcing User-specific Check-in: Only the user who has checked out a book is allowed to check it back in. Other users cannot perform the check-in operation for books that they have not checked out.
+</document_content>
+</document>
+</documents>

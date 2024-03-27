@@ -36,3 +36,7 @@ Checkout Book: User ID: 1, ISBN: 432
 Checkin Book: User ID: 2, ISBN: 432
 Checkout Book: User ID: 1, ISBN: 432
 Checkin Book: User ID: 1, ISBN: 432
+Add Book: Title: jack, Author: arthur, ISBN: 567
+Checkout Book: User ID: 1, ISBN: 567
+Checkin Book: User ID: 2, ISBN: 567
+Checkin Book: User ID: 1, ISBN: 432
