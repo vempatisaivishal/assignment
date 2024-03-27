@@ -1,52 +1,44 @@
+# check.py
+
 from storage import Storage
 from logger import Logger
-import json
+from book import Book
 
 
 class Check:
-    def __init__(self, user_id, isbn):
-        self.user_id = user_id
-        self.isbn = isbn
-
     @staticmethod
     def checkout_book(user_id, isbn):
         try:
-            # Load existing checkout data from storage
             checkouts = Storage.load_data("checkouts.json")
-        except FileNotFoundError:
-            # If the checkout data file does not exist, initialize an empty list
-            checkouts = []
-
-        # Append the new checkout record to the list of checkouts
-        checkouts.append(Check(user_id, isbn).__dict__)
-
-        # Save the updated list of checkouts back to storage
-        Storage.save_data("checkouts.json", checkouts)
-
-        # Log the checkout operation
-        Logger.log_operation("Checkout Book", f"User ID: {user_id}, ISBN: {isbn}")
+            checkouts.append({"user_id": user_id, "isbn": isbn})
+            Storage.save_data("checkouts.json", checkouts)
+            Logger.log_operation("Checkout Book", f"User ID: {user_id}, ISBN: {isbn}")
+            print("Book checked out.")
+        except Exception as e:
+            print(f"An error occurred while checking out a book: {e}")
 
     @staticmethod
     def checkin_book(user_id, isbn):
         try:
-            # Try to load existing checkout data from storage
             checkouts = Storage.load_data("checkouts.json")
-        except FileNotFoundError:
-            # If the checkout data file does not exist, initialize an empty list
-            checkouts = []
-
-        # Filter out the checkout record corresponding to the specified user ID and ISBN
-        checkouts = [
-            checkout
-            for checkout in checkouts
-            if checkout.get("user_id") != user_id or checkout.get("isbn") != isbn
-        ]
-
-        try:
-            # Save the updated list of checkouts back to storage
-            Storage.save_data("checkouts.json", checkouts)
+            # Find the checkout record for the given user_id and isbn
+            checkout_record = next(
+                (
+                    checkout
+                    for checkout in checkouts
+                    if checkout["user_id"] == user_id and checkout["isbn"] == isbn
+                ),
+                None,
+            )
+            if checkout_record:
+                # Remove the checkout record from the list
+                checkouts.remove(checkout_record)
+                Storage.save_data("checkouts.json", checkouts)
+                Logger.log_operation(
+                    "Checkin Book", f"User ID: {user_id}, ISBN: {isbn}"
+                )
+                print("Book checked in.")
+            else:
+                print("You cannot check in this book as you haven't checked it out.")
         except Exception as e:
-            print(f"An error occurred while saving checkouts data: {e}")
-
-        # Log the checkin operation
-        Logger.log_operation("Checkin Book", f"User ID: {user_id}, ISBN: {isbn}")
+            print(f"An error occurred while checking in a book: {e}")

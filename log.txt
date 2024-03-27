@@ -22,3 +22,17 @@ Checkin Book: User ID: 1, ISBN: 1231234
 Checkout Book: User ID: 1, ISBN: 12345678
 Add Book: Title: titu, Author: yuit, ISBN: 321
 Add Book: Title: hey, Author: hero, ISBN: 44
+Add Book: Title: yuhy, Author: riot, ISBN: 342
+Checkout Book: User ID: 123456, ISBN: 12345678
+Checkin Book: User ID: 123456, ISBN: 12345678
+Checkout Book: User ID: 1, ISBN: 1231234
+Checkout Book: User ID: 1, ISBN: 1231234
+Checkin Book: User ID: cls, ISBN: 1231234
+Checkout Book: User ID: 1, ISBN: 321
+Add User: Name: vishal, User ID: 1
+Add User: Name: raghav, User ID: 2
+Add Book: Title: tui, Author: hashmatullah, ISBN: 432
+Checkout Book: User ID: 1, ISBN: 432
+Checkin Book: User ID: 2, ISBN: 432
+Checkout Book: User ID: 1, ISBN: 432
+Checkin Book: User ID: 1, ISBN: 432

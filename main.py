@@ -100,7 +100,7 @@ class Main:
                         print(user)
                 else:
                     print("No users found.")
-            elif choice == "11":
+            elif choice == "11":  # Checkout Book
                 user_id = input("Enter user ID: ")
                 isbn = input("Enter ISBN of the book to checkout: ")
                 if self.book_manager.check_availability(isbn):
@@ -108,7 +108,7 @@ class Main:
                     print("Book checked out.")
                 else:
                     print("Book is not available for checkout.")
-            elif choice == "12":
+            elif choice == "12":  # Checkin Book
                 user_id = input("Enter user ID: ")
                 isbn = input("Enter ISBN of the book to check in: ")
                 self.checkout_manager.checkin_book(user_id, isbn)
