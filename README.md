@@ -44,11 +44,10 @@ To set up and run the Library Management System on your local machine, follow th
 ## New Features
 
 - **Preventing Duplicate User IDs and Names**: Implemented functionality to ensure that there are no duplicate user IDs or names when adding a new user. If a duplicate is detected, the system notifies the user that the user already exists.
-  <<<<<<< HEAD
+
 - # **Book Availability Tracking**: Enhanced book management by implementing book availability tracking. Before allowing a checkout operation, the system checks the availability of the book to prevent multiple users from checking out the same book simultaneously.
 - **Book Availability Tracking**: Enhanced book management by implementing book availability tracking. Before allowing a checkout operation, the system checks the availability of the book to prevent multiple users from checking out the same book simultaneously.
 
-> > > > > > > 4c6150e70a4cbd22972e1720e230d8d1fcf7d4c8
 
 - **User-Specific Check-in**: Implemented user-specific check-in functionality, allowing only the user who has checked out a book to check it back in. Other users cannot perform the check-in operation for books that they have not checked out.
 
