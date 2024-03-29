@@ -56,7 +56,16 @@ class Book:
             Storage.save_data("books.json", books)
         except Exception as e:
             print(f"An error occurred while deleting a book: {e}")
-
+    @staticmethod
+    def list_books():
+        try:
+            # Load existing books data from storage
+            books = Storage.load_data("books.json")
+            # Print details of each book
+            for book in books:
+                print(book)
+        except Exception as e:
+            print(f"An error occurred while listing books: {e}")
     @staticmethod
     def search_book(attribute, value):
         try:
